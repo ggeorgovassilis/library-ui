@@ -10,6 +10,24 @@
 </h:head>
 <h:body>
 	<h1>Welcome to the Library of Alexandria</h1>
+	
+	<fieldset>
+	<p>Find a book:</p>
+	<h:form>
+		<h:inputText value="#{libraryDTO.entity.title}"/>
+		<h:commandButton value="Search" action="#{libraryDTO.search}"/>
+	</h:form>
+	<h:dataTable value="#{libraryDTO.searchResults}" var="book">
+		<h:column>
+            #{book.ISBN}
+         </h:column>
+		<h:column>
+            #{book.title}
+         </h:column>
+	</h:dataTable>
+	</fieldset>
+	
+	<fieldset>
 	<p>Read these fine books:</p>
 	<h:dataTable value="#{libraryDTO.allBooks}" var="book">
 		<h:column>
@@ -19,11 +37,14 @@
             #{book.title}
          </h:column>
 	</h:dataTable>
+	</fieldset>
 
+	<fieldset>
 	<p>Or add a book:</p>
 	<h:form>
 		<h:inputText value="#{libraryDTO.entity.title}"/>
 		<h:commandButton value="Add" action="#{libraryDTO.store}"/>
 	</h:form>
+	</fieldset>
 </h:body>
 </html>

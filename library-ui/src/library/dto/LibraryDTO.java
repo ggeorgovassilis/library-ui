@@ -20,7 +20,7 @@ import library.server.LibraryService;
 public class LibraryDTO implements Serializable{
 
 	@EJB
-	LibraryService bean;
+	LibraryService service;
 
 	private Book entity = new Book();
 
@@ -31,12 +31,20 @@ public class LibraryDTO implements Serializable{
 	public void setEntity(Book entity) {
 		this.entity = entity;
 	}
+	
+	public void search(){
+		
+	}
 
 	public void store(){
-		bean.addBook(entity);
+		service.addBook(entity);
+	}
+
+	public List<Book> getSearchResults() {
+		return service.search(entity.getTitle());
 	}
 
 	public List<Book> getAllBooks() {
-		return bean.getAllBooks();
+		return service.getAllBooks();
 	}
 }
