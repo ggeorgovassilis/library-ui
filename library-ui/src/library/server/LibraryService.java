@@ -7,22 +7,22 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import library.domain.BookEntity;
+import library.domain.Book;
 
 
 @Stateless
 @Named
-public class LibraryManagerBean{
+public class LibraryService{
 
 	@PersistenceContext
 	EntityManager em;
 	
-	public void addBook(BookEntity book){
+	public void addBook(Book book){
 		em.persist(book);
 	}
 	
-	public List<BookEntity> getAllBooks() {
-		return em.createQuery("SELECT book FROM BookEntity book").getResultList();
+	public List<Book> getAllBooks() {
+		return em.createQuery("SELECT book FROM Book book").getResultList();
 	}
 
 }

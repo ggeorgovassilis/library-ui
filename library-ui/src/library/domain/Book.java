@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class BookEntity implements Serializable {
+public class Book implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,7 +16,7 @@ public class BookEntity implements Serializable {
 	
 	private String title;
 
-	public BookEntity(){
+	public Book(){
 	}
 	
 	

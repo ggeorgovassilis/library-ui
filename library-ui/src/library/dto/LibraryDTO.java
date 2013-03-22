@@ -10,25 +10,25 @@ import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import library.domain.BookEntity;
-import library.server.LibraryManagerBean;
+import library.domain.Book;
+import library.server.LibraryService;
 
 
 @ManagedBean
 @RequestScoped
 @Named
-public class LibraryPM implements Serializable{
+public class LibraryDTO implements Serializable{
 
 	@EJB
-	LibraryManagerBean bean;
+	LibraryService bean;
 
-	private BookEntity entity = new BookEntity();
+	private Book entity = new Book();
 
-	public BookEntity getEntity() {
+	public Book getEntity() {
 		return entity;
 	}
 
-	public void setEntity(BookEntity entity) {
+	public void setEntity(Book entity) {
 		this.entity = entity;
 	}
 
@@ -36,7 +36,7 @@ public class LibraryPM implements Serializable{
 		bean.addBook(entity);
 	}
 
-	public List<BookEntity> getAllBooks() {
+	public List<Book> getAllBooks() {
 		return bean.getAllBooks();
 	}
 }

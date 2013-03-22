@@ -11,7 +11,7 @@
 <h:body>
 	<h1>Welcome to the Library of Alexandria</h1>
 	<p>Read these fine books:</p>
-	<h:dataTable value="#{libraryPM.allBooks}" var="book">
+	<h:dataTable value="#{libraryDTO.allBooks}" var="book">
 		<h:column>
             #{book.ISBN}
          </h:column>
@@ -22,8 +22,8 @@
 
 	<p>Or add a book:</p>
 	<h:form>
-		<h:inputText value="#{libraryPM.entity.title}"/>
-		<h:commandButton value="Add" action="#{libraryPM.store}"/>
+		<h:inputText value="#{libraryDTO.entity.title}"/>
+		<h:commandButton value="Add" action="#{libraryDTO.store}"/>
 	</h:form>
 </h:body>
 </html>
