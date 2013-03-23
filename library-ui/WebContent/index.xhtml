@@ -7,18 +7,18 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Library of Alexandria</title>
+    <h:outputStylesheet name="../library.css" />
 </h:head>
 <h:body>
 	<h1>Welcome to the Library of Alexandria</h1>
 	
 	<fieldset>
-	<p>Find a book:</p>
 	<h:form>
-		<h:inputText value="#{libraryDTO.book.title}"/>
-		<h:commandButton value="Search" action="#{libraryDTO.search}"/>
+	Find a book: <h:inputText value="#{searchBooksForm.query}"/>
+	<h:commandButton value="Search" action="#{searchBooksForm.search}"/>
 	</h:form>
-	<h:dataTable value="#{libraryDTO.searchResults}" var="book">
-		<h:column>
+	<h:dataTable value="#{searchBooksForm.searchResults}" var="book" styleClass="list-of-books">
+		<h:column headerClass="hi">
             <b>#{book.title}</b><br/>
             <i>by #{book.author.name}</i>
          </h:column>
@@ -26,15 +26,8 @@
             #{book.ISBN}
          </h:column>
 	</h:dataTable>
+	<a href="addbook.xhtml">Add a book</a>
 	</fieldset>
 	
-	<fieldset>
-	<p>Or add a book:</p>
-	<h:form>
-		Book title: <h:inputText value="#{libraryDTO.book.title}"/><br/>
-		By author: <h:inputText value="#{libraryDTO.authorName}"/>
-		<h:commandButton value="Add" action="#{libraryDTO.store}"/>
-	</h:form>
-	</fieldset>
 </h:body>
 </html>

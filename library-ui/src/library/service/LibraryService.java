@@ -26,24 +26,29 @@ public class LibraryService{
 
 	@EJB
 	IBookService bookService;
+	@EJB
+	IWareHouseService wareHouseService;
 
-	private void addBook(String title, String author){
+	private void addBook(String title, String authorName, int quantity, int price){
 		Book book = new Book();
 		book.setTitle(title);
-		addBook(book, author);
+		bookService.addBookInternal(book, authorName);
+		wareHouseService.setPrice(book.getISBN(), price);
+		wareHouseService.increaseStock(book.getISBN(), quantity);
 	}
 	
     @PostConstruct
     void init() {
-    	addBook("The Art of War","Sun Tzu");
-    	addBook("Phaedrus","Plato");
-    	addBook("Metaphysics","Plato");
-    	addBook("Metaphysics","Plato");
-    	addBook("War and Peace","Leo Tolstoy");
+    	addBook("The Art of War","Sun Tzu", 10, 2);
+    	addBook("Phaedrus","Plato", 9, 3);
+    	addBook("Metaphysics","Plato", 8, 4);
+    	addBook("Metaphysics","Plato", 7, 5);
+    	addBook("War and Peace","Leo Tolstoy", 6, 6);
     }
 
 	public void addBook(Book book, String authorName){
 		bookService.addBook(book, authorName);
+		wareHouseService.increaseStock(book.getISBN(), 0);
 	}
 	
 	@GET

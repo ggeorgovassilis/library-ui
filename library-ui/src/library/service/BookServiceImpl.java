@@ -2,6 +2,7 @@ package library.service;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,8 +20,27 @@ public class BookServiceImpl implements IBookService {
 	@EJB
 	IIsbnService isbnService;
 
+    @RolesAllowed({ "library" })
 	@Override
 	public void addBook(Book book, String authorName){
+    	addBookInternal(book, authorName);
+    }
+	
+	@Override
+	public List<Book> getAllBooks(){
+		return em.createQuery("SELECT book FROM Book book").getResultList();
+	}
+
+	@Override
+	public List<Book> findBooks(String query){
+		if (query == null)
+			query="";
+		query = query.toUpperCase();
+		return em.createQuery("SELECT DISTINCT book FROM Book book where upper(book.title) like :q OR upper(book.author.name )like :q").setParameter("q", "%"+query+"%").getResultList();
+	}
+
+	@Override
+	public void addBookInternal(Book book, String authorName) {
 		Author author = null;
 		if (book.getISBN()==null){
 			String isbn = isbnService.allocateNewIsbn();
@@ -37,19 +57,5 @@ public class BookServiceImpl implements IBookService {
 		book.setAuthor(author);
 		em.persist(book);
 		em.persist(author);
-		
-	}
-	
-	@Override
-	public List<Book> getAllBooks(){
-		return em.createQuery("SELECT book FROM Book book").getResultList();
-	}
-
-	@Override
-	public List<Book> findBooks(String query){
-		if (query == null)
-			query="";
-		query = query.toUpperCase();
-		return em.createQuery("SELECT DISTINCT book FROM Book book where upper(book.title) like :q OR upper(book.author.name )like :q").setParameter("q", "%"+query+"%").getResultList();
 	}
 }
