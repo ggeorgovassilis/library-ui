@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Library of Alexandria</title>
+    <h:outputStylesheet name="../library.css" />
+</h:head>
+<h:body>
+	<h1>Your shopping cart</h1>
+	<a href="index.xhtml">Home</a>
+	<fieldset>
+	<h:dataTable value="#{shoppingCartForm.items}" var="item" styleClass="list-of-books">
+		<h:column>
+            <b><h:outputText value="#{item.book.title}"/></b><br/>
+         </h:column>
+		<h:column>
+            <h:outputText value="#{item.quantity}"/>
+        </h:column>
+		<h:column>
+            <h:outputText value="#{item.price}"/>€
+        </h:column>
+		<h:column>
+			<h:form>
+				<h:inputHidden value="#{item.book.ISBN}"/>
+				<h:commandButton action="#{shoppingCartForm.remove(item.book.ISBN)}" value="Remove"/>
+			</h:form>
+		</h:column>
+	</h:dataTable>
+	</fieldset>
+	
+	<h:form>
+		<h:commandButton action="#{shoppingCartForm.emptyCart}" value="Empty"/>
+		<h:commandButton action="#{shoppingCartForm.buy}" value="Buy"/>
+	</h:form>
+	
+</h:body>
+</html>
