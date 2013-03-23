@@ -2,29 +2,47 @@ package library.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Book implements Serializable {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ISBN;
+    private String ISBN;
 	
+	@Column(name = "TITLE", nullable = false)
 	private String title;
+
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "AUTHOR_ID", nullable = false)
+	private Author author;
+	
+	public Author getAuthor() {
+		return author;
+	}
+
+
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
+
 
 	public Book(){
 	}
 	
 	
-	public Long getISBN() {
+	public String getISBN() {
 		return ISBN;
 	}
 
-	public void setISBN(Long iSBN) {
+	public void setISBN(String iSBN) {
 		ISBN = iSBN;
 	}
 

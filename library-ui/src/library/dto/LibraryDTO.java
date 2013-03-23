@@ -10,8 +10,9 @@ import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import library.domain.Author;
 import library.domain.Book;
-import library.server.LibraryService;
+import library.service.LibraryService;
 
 
 @ManagedBean
@@ -22,14 +23,23 @@ public class LibraryDTO implements Serializable{
 	@EJB
 	LibraryService service;
 
-	private Book entity = new Book();
+	private Book book = new Book();
+	private String authorName = "";
 
-	public Book getEntity() {
-		return entity;
+	public String getAuthorName() {
+		return authorName;
 	}
 
-	public void setEntity(Book entity) {
-		this.entity = entity;
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book entity) {
+		this.book = entity;
 	}
 	
 	public void search(){
@@ -37,11 +47,11 @@ public class LibraryDTO implements Serializable{
 	}
 
 	public void store(){
-		service.addBook(entity);
+		service.addBook(book, authorName);
 	}
 
 	public List<Book> getSearchResults() {
-		return service.search(entity.getTitle());
+		return service.search(book.getTitle());
 	}
 
 	public List<Book> getAllBooks() {
