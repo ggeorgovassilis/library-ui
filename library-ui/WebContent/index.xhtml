@@ -10,6 +10,9 @@
     <h:outputStylesheet name="../library.css" />
 </h:head>
 <h:body>
+	<div class="mini-shopping-cart">
+			<h:outputLabel value="#{shoppingCartForm.itemCount}"/> items in your <a href="shoppingcart.xhtml">shopping cart</a> 
+	</div>
 	<h1>Welcome to the Library of Alexandria</h1>
 	
 	<fieldset>
@@ -17,17 +20,28 @@
 	Find a book: <h:inputText value="#{searchBooksForm.query}"/>
 	<h:commandButton value="Search" action="#{searchBooksForm.search}"/>
 	</h:form>
-	<h:dataTable value="#{searchBooksForm.searchResults}" var="book" styleClass="list-of-books">
+	<h:dataTable value="#{searchBooksForm.searchResults}" var="item" styleClass="list-of-books">
 		<h:column headerClass="hi">
-            <b>#{book.title}</b><br/>
-            <i>by #{book.author.name}</i>
+            <b><h:outputText value="#{item.book.title}"/></b><br/>
+            <i>by <h:outputText value="#{item.book.author.name}"/></i>
          </h:column>
 		<h:column>
-            #{book.ISBN}
-         </h:column>
+            <h:outputText value="#{item.book.ISBN}"/>
+        </h:column>
+		<h:column>
+			<h:outputLabel value="Available" rendered="#{item.stock.count>0}" /> 
+			<h:outputLabel value="Out of stock" rendered="#{item.stock.count==0}" />
+        </h:column>
+		<h:column>
+			<h:form>
+				<h:inputHidden value="#{item.book.ISBN}" binding="#{input1}"/>
+				<h:commandButton rendered="#{item.stock.count>0}" action="#{shoppingCartForm.addToShoppingCart(input1.value)}" value="Add to shopping cart"/>
+			</h:form>
+		</h:column>
 	</h:dataTable>
 	<a href="addbook.xhtml">Add a book</a>
 	</fieldset>
+	
 	
 </h:body>
 </html>

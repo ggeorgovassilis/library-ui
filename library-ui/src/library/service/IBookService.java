@@ -12,8 +12,10 @@ public interface IBookService extends Serializable{
 
 	Book addBook(Book book, String authorName);
 
-	List<Book> getAllBooks();
-
 	List<Book> findBooks(String query);
+	
+	Book findBookByISBN(String isbn);
+	
+	void deleteAllBooks();
 
 }

@@ -1,4 +1,4 @@
-package library.service;
+package library.service.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import library.domain.Stock;
+import library.service.IWareHouseService;
 
 @Stateless
 public class WareHouseServiceImpl implements IWareHouseService {
@@ -17,6 +18,7 @@ public class WareHouseServiceImpl implements IWareHouseService {
 
 	@Override
 	public Stock getStock(String isbn) {
+		@SuppressWarnings("unchecked")
 		List<Stock> results = em
 				.createQuery(
 						"SELECT stock FROM Stock stock WHERE stock.ISBN = :isbn")

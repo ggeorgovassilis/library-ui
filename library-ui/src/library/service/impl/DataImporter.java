@@ -1,10 +1,12 @@
-package library.service;
+package library.service.impl;
 
 import javax.annotation.security.RunAs;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import library.domain.Book;
+import library.service.IBookService;
+import library.service.IWareHouseService;
 
 @Stateless
 @RunAs("library")
@@ -24,10 +26,11 @@ public class DataImporter {
 	}
 
 	public void importData(){
+		bookService.deleteAllBooks();
     	addBook("The Art of War","Sun Tzu", 10, 2);
     	addBook("Phaedrus","Plato", 9, 3);
     	addBook("Metaphysics","Plato", 8, 4);
-    	addBook("Metaphysics","Plato", 7, 5);
+    	addBook("The Republic","Plato", 7, 5);
     	addBook("War and Peace","Leo Tolstoy", 6, 6);
 	}
 }

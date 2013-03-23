@@ -9,8 +9,7 @@ import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import library.domain.Book;
-import library.service.LibraryService;
+import library.service.impl.LibraryService;
 
 
 @ManagedBean
@@ -34,11 +33,8 @@ public class SearchBooksForm implements Serializable{
 	public void search(){
 	}
 
-	public List<Book> getSearchResults() {
+	public List<BookDTO> getSearchResults() {
 		return service.search(query);
 	}
 
-	public List<Book> getAllBooks() {
-		return service.getAllBooks();
-	}
 }
