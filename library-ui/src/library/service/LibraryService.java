@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.security.RunAs;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -28,22 +29,12 @@ public class LibraryService{
 	IBookService bookService;
 	@EJB
 	IWareHouseService wareHouseService;
-
-	private void addBook(String title, String authorName, int quantity, int price){
-		Book book = new Book();
-		book.setTitle(title);
-		bookService.addBookInternal(book, authorName);
-		wareHouseService.setPrice(book.getISBN(), price);
-		wareHouseService.increaseStock(book.getISBN(), quantity);
-	}
+	@EJB
+	DataImporter dataImporter;
 	
     @PostConstruct
-    void init() {
-    	addBook("The Art of War","Sun Tzu", 10, 2);
-    	addBook("Phaedrus","Plato", 9, 3);
-    	addBook("Metaphysics","Plato", 8, 4);
-    	addBook("Metaphysics","Plato", 7, 5);
-    	addBook("War and Peace","Leo Tolstoy", 6, 6);
+    public void init() {
+    	dataImporter.importData();
     }
 
 	public void addBook(Book book, String authorName){

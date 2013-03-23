@@ -10,8 +10,7 @@ import library.domain.Book;
 @Remote
 public interface IBookService extends Serializable{
 
-	void addBook(Book book, String authorName);
-	void addBookInternal(Book book, String authorName);
+	Book addBook(Book book, String authorName);
 
 	List<Book> getAllBooks();
 
