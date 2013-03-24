@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Book implements Serializable {
 
+	public enum Source{Library,UserContributed,Google};
+	
 	@Id
     private String ISBN;
 	
@@ -22,6 +24,18 @@ public class Book implements Serializable {
     @JoinColumn(name = "AUTHOR_ID", nullable = false)
 	private Author author;
 	
+    private Source source;
+    
+	public Source getSource() {
+		return source;
+	}
+
+
+	public void setSource(Source source) {
+		this.source = source;
+	}
+
+
 	public Author getAuthor() {
 		return author;
 	}

@@ -7,22 +7,41 @@ import library.domain.Stock;
 
 public class BookDTO implements Serializable {
 
-	private Book book;
-	private Stock stock;
-
-	public Book getBook() {
-		return book;
+	private String ISBN;
+	private String author;
+	private String title;
+	private Book.Source source;
+	private boolean inStock;
+	public String getISBN() {
+		return ISBN;
+	}
+	public void setISBN(String iSBN) {
+		ISBN = iSBN;
+	}
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public Book.Source getSource() {
+		return source;
+	}
+	public void setSource(Book.Source source) {
+		this.source = source;
 	}
 
-	public void setBook(Book book) {
-		this.book = book;
+	public boolean isInStock() {
+		return inStock;
 	}
-
-	public Stock getStock() {
-		return stock;
+	public void setInStock(boolean inStock) {
+		this.inStock = inStock;
 	}
-
-	public void setStock(Stock stock) {
-		this.stock = stock;
-	}
+	
 }

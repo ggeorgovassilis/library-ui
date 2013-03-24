@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import library.domain.Book;
+import library.domain.Book.Source;
 import library.service.impl.LibraryService;
 
 
@@ -42,6 +43,7 @@ public class AddBooksForm implements Serializable{
 	public String addBook(){
 		Book book = new Book();
 		book.setTitle(bookTitle);
+		book.setSource(Source.UserContributed);
 		service.addBook(book, authorName);
 		return "index";
 	}

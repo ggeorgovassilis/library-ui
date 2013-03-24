@@ -20,22 +20,27 @@
 	Find a book: <h:inputText value="#{searchBooksForm.query}"/>
 	<h:commandButton value="Search" action="#{searchBooksForm.search}"/>
 	</h:form>
-	<h:dataTable value="#{searchBooksForm.searchResults}" var="item" styleClass="list-of-books">
+	<h:dataTable value="#{searchBooksForm.searchResults}" var="book" styleClass="list-of-books">
 		<h:column headerClass="hi">
-            <b><h:outputText value="#{item.book.title}"/></b><br/>
-            <i>by <h:outputText value="#{item.book.author.name}"/></i>
+            <b><h:outputText value="#{book.title}"/></b><br/>
+            <i>by <h:outputText value="#{book.author}"/></i>
          </h:column>
 		<h:column>
             <h:outputText value="#{item.book.ISBN}"/>
         </h:column>
 		<h:column>
-			<h:outputLabel value="Available" rendered="#{item.stock.count>0}" /> 
-			<h:outputLabel value="Out of stock" rendered="#{item.stock.count==0}" />
+			<h:outputLabel value="Available" rendered="#{book.inStock == true}" /> 
+			<h:outputLabel value="Out of stock" rendered="#{book.inStock == false}" />
+        </h:column>
+		<h:column>
+			<h:outputLabel value="Source: Library" rendered="#{book.source=='Library'}" />
+			<h:outputLabel value="Source: User contributed" rendered="#{book.source=='UserContributed'}" />
+			<h:outputLabel value="Source: Google" rendered="#{book.source=='Google'}" />
         </h:column>
 		<h:column>
 			<h:form>
-				<h:inputHidden value="#{item.book.ISBN}" binding="#{input1}"/>
-				<h:commandButton rendered="#{item.stock.count>0}" action="#{shoppingCartForm.addToShoppingCart(input1.value)}" value="Add to shopping cart"/>
+				<h:inputHidden value="#{book.ISBN}"/>
+				<h:commandButton rendered="#{book.inStock==true}" action="#{shoppingCartForm.addToShoppingCart(book.isbn)}" value="Add to shopping cart"/>
 			</h:form>
 		</h:column>
 	</h:dataTable>

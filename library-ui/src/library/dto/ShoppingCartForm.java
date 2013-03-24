@@ -23,7 +23,6 @@ public class ShoppingCartForm implements Serializable{
 
 	@EJB
 	LibraryService service;
-	@EJB
 	IBookService bookService;
 	@EJB
 	ShoppingCart shoppingCart;

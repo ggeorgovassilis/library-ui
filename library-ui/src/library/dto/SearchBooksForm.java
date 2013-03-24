@@ -4,6 +4,7 @@ package library.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.bean.ManagedBean;
@@ -21,7 +22,9 @@ public class SearchBooksForm implements Serializable{
 	LibraryService service;
 
 	private String query = "";
-
+	private List<BookDTO> searchResults;
+		
+	
 	public String getQuery() {
 		return query;
 	}
@@ -30,11 +33,13 @@ public class SearchBooksForm implements Serializable{
 		this.query = query;
 	}
 	
+	@PostConstruct
 	public void search(){
+		searchResults = service.search(query);
 	}
 
 	public List<BookDTO> getSearchResults() {
-		return service.search(query);
+		return searchResults;
 	}
 
 }

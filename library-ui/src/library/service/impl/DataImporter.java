@@ -20,6 +20,7 @@ public class DataImporter {
 	private void addBook(String title, String authorName, int quantity, int price){
 		Book book = new Book();
 		book.setTitle(title);
+		book.setSource(Book.Source.Library);
 		book = bookService.addBook(book, authorName);
 		wareHouseService.setPrice(book.getISBN(), price);
 		wareHouseService.increaseStock(book.getISBN(), quantity);
